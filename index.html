@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+
+           @media screen and (max-width: 924px) {
+            #countBanner {
+                display: flex;
+            }
+
+            #countBanner {
+                background-color: #ffecca;
+                border: 2px solid #ffd57c;
+                border-radius: 8px;
+                padding: 0.5rem 0;
+                margin: 1rem 0 1.5rem;
+                display: none;
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+
+            .one {
+                display: flex;
+                justify-content: center;
+                font-size: 14px;
+                font-weight: 700;
+                border-bottom: 1px solid;
+            }
+
+            .three {
+                max-width: 100%;
+                width: 100%;
+                background-color: #ffd57c;
+                text-align: center;
+                margin-top: 5px;
+            }
+
+            .main-container {
+                max-width: 100%;
+            }
+
+            #countBanner span {
+                font-size: 16px;
+            }
+        }
+        #countBanner.startTime {
+            margin: 1rem 0 1.5rem;
+            padding: 0.5rem 1.5rem 0.5rem 3rem;
+            background: linear-gradient(90deg, #fb0, #f80);
+            position: relative;
+            border-radius: 10rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            column-gap: 1rem;
+            box-sizing: border-box;
+            margin: 0;
+            font-size: 18px;
+        }
+
+        #countBanner.startTime img {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-55%);
+            left: -10px;
+            height: 50px;
+        }
+
+        .main-container {
+            margin: 0 auto;
+            max-width: 1140px;
+        }
+
+        p {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            font-size: 18px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <div id="countBanner" class="startTime">
+            <img src="img/clock_desktop.png">
+            <p class="one"><b>LIMITED TIME OFFER</b></p>
+            <p class="two">Ends in: <span id="counter">06:00:00</span></p>
+            <p class="three"><span><b>GET 10% OFF</b></span> <span>Use Code:
+                    <b>EXAMSTART</b></span></p>
+        </div>
+    </div>
+    <script>
+        function startCountdown() {
+            const targetTime = new Date();
+            targetTime.setTime(targetTime.getTime() + 6 * 60 * 60 * 1000); // Add 6 hours to the current time
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const timeRemaining = targetTime - now;
+
+                // Check if the countdown has reached zero
+                if (timeRemaining <= 0) {
+                    clearInterval(timer);
+                    startCountdown(); // Restart the countdown
+                    return;
+                }
+
+                // Calculate the hours, minutes, and seconds
+                const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+                // Format the time with leading zeros if necessary
+                const formattedTime = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+
+                // Display the formatted time in the HTML element
+                document.getElementById("counter").textContent = formattedTime;
+            }
+
+            // Helper function to add leading zeros to numbers less than 10
+            function padZero(num) {
+                return num < 10 ? `0${num}` : num;
+            }
+
+            // Start the countdown immediately
+            updateCountdown();
+            const timer = setInterval(updateCountdown, 1000);
+        }
+
+        // Start the initial countdown
+        startCountdown();
+
+    </script>
+</body>
+
+</html>
